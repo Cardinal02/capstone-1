@@ -18,4 +18,14 @@ export default createMuiTheme({
       main: `${vpurple}`,
     },
   },
+
+  typography: {
+    tab: {
+      fontFamily: "Sansita",
+      textTransform: "none",
+      fontWeight: 900,
+      fontSize: "1rem",
+      color: "secondary",
+    },
+  },
 });

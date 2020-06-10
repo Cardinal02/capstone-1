@@ -2,12 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./components/App";
+import CartProvider from "./components/context";
+
 //import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-  <React.StrictMode>
+  <CartProvider>
     <App />
-  </React.StrictMode>,
+  </CartProvider>,
   document.getElementById("root")
 );
 
