@@ -1,8 +1,11 @@
 import React, { useContext } from "react";
+import { Route } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import { CartContext } from "./context";
+import { PybContext } from "./PybContext";
+import { CartContext } from "./CartContext";
 
+import { Link } from "react-router-dom";
 import clsx from "clsx";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -19,13 +22,14 @@ import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Button from "@material-ui/core/Button";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 600,
   },
   media: {
-    height: 0,
+    height: "80px",
     paddingTop: "56.25%", // 16:9
   },
   expand: {
@@ -43,15 +47,16 @@ const useStyles = makeStyles((theme) => ({
   },
 
   card: {
-    maxWidth: 345,
+    width: 200,
   },
+  // Button: { margin: 20 },
 }));
 
+//returns the data of each product that is being passed as prop in a neatly wrapped Material Ui Card component format
 export default function Item(props) {
   const classes = useStyles();
-  const cartctxt = useContext(CartContext);
   const [expanded, setExpanded] = React.useState(false);
-
+  const cartctxt = useContext(CartContext);
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -61,6 +66,7 @@ export default function Item(props) {
       <Card className={classes.root}>
         <CardHeader
           avatar={
+            //red pyb button
             <Avatar aria-label="set" className={classes.avatar}>
               PYB
             </Avatar>
@@ -70,18 +76,35 @@ export default function Item(props) {
               <MoreVertIcon />
             </IconButton>
           }
-          title={props.item}
-          subheader={props.price}
+          title={props.item} //Product name
+          subheader={`$${props.price}`} //Product Price
         />
 
+        {/*//product image */}
         <CardMedia className={classes.media} image={props.pic} title="Set" />
-        <CardContent>
-          <Button
-            onClick={() => cartctxt.addToCart(props)}
+        <CardContent align="center" justify="spaceBetween">
+          <IconButton
             variant="contained"
             color="secondary"
+            onClick={() => {
+              alert("Added to your cart"); //function to pop up an alert
+            }}
           >
-            Add to cart
+            <ShoppingCartIcon
+              onClick={() => cartctxt.addToCart(props)} //function to add item to cat on click
+              color="secondary"
+              style={{ fontSize: 50 }}
+            />
+          </IconButton>
+          {/* A button to navigate to checkout page on click */}
+          <Button
+            component={Link}
+            to="/cart"
+            variant="contained"
+            color="primary"
+          >
+            Checkout
+            <Route exact path="/cart" />
           </Button>
         </CardContent>
         <CardActions disableSpacing>
@@ -105,19 +128,10 @@ export default function Item(props) {
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
             <Typography paragraph>
-              Heat 1/2 cup of the broth in a pot until simmering, add saffron
-              and set aside for 10 minutes.
+              Manufactured by {props.manufacturer}
             </Typography>
-            <Typography paragraph>
-              Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet
-              over medium-high heat. Add chicken, shrimp and chorizo, and cook,
-              stirring occasionally until lightly browned, 6 to 8 minutes.
-              Transfer shrimp to a large plate and set aside, leaving chicken
-              and chorizo in the pan. Add pimentón, bay leaves, garlic,
-              tomatoes, onion, salt and pepper, and cook, stirring often until
-              thickened and fragrant, about 10 minutes. Add saffron broth and
-              remaining 4 1/2 cups chicken broth; bring to a boil.
-            </Typography>
+            <Typography paragraph>Product Theme : {props.category}</Typography>
+            <Typography paragraph>{props.description}</Typography>
           </CardContent>
         </Collapse>
       </Card>
