@@ -91,7 +91,7 @@ export default function Item(props) {
             }}
           >
             <ShoppingCartIcon
-              onClick={() => cartctxt.addToCart(props)} //function to add item to cat on click
+              onClick={() => cartctxt.addToCart(props)} //function to add item to cart on click
               color="secondary"
               style={{ fontSize: 50 }}
             />

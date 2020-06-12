@@ -7,6 +7,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { CartContext } from "./CartContext";
 import { CartProvider } from "./CartContext";
 import PayPalCheckout from "./PayPalCheckout";
+import DirectPayment from "./DirectPayment";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
@@ -69,7 +70,7 @@ export default function MyCart() {
 
         <Grid
           container
-          spacing={10}
+          spacing={2}
           style={{ padding: "10px" }}
           justify="space-around"
         >
@@ -87,6 +88,9 @@ export default function MyCart() {
                     <TableCell>Name</TableCell>
                     <TableCell align="right">Price </TableCell>
                     <TableCell align="right">Quantity</TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -143,6 +147,7 @@ export default function MyCart() {
                         Order Summary
                       </Typography>
                     </TableCell>
+                    <TableCell></TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -175,7 +180,7 @@ export default function MyCart() {
                         color="secondary"
                         size="large"
                       >
-                        Checkout
+                        Pay Now
                       </Button>
                     </TableCell>
                     <TableCell>
@@ -187,6 +192,7 @@ export default function MyCart() {
                 </TableBody>
               </Table>
             </TableContainer>
+            <DirectPayment />
           </Grid>
         </Grid>
       </CartProvider>
